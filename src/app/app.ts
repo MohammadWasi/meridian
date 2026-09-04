@@ -1,12 +1,21 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Sidebar } from './layout/sidebar';
+import { Topbar } from './layout/topbar';
+import { CommandPalette } from './shared/command-palette';
+import { LayoutService } from './layout/layout.service';
 
 @Component({
-  imports: [RouterOutlet],
   selector: 'app-root',
-  styleUrl: './app.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [RouterOutlet, Sidebar, Topbar, CommandPalette],
   templateUrl: './app.html',
+  styleUrl: './app.css',
+  host: {
+    '[class.rail-collapsed]': 'layout.collapsed()',
+    '[class.mobile-open]': 'layout.mobileOpen()',
+  },
 })
 export class App {
-  protected readonly title = signal('meridian');
+  protected readonly layout = inject(LayoutService);
 }

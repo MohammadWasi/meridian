@@ -1,0 +1,81 @@
+.cols { display: grid; grid-template-columns: 1.3fr 1fr; gap: var(--sp-4); align-items: start; }
+.stack { display: flex; flex-direction: column; gap: var(--sp-4); }
+@media (max-width: 960px) { .cols { grid-template-columns: 1fr; } }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-1);
+  padding: var(--sp-5);
+}
+.card > header { margin-bottom: var(--sp-4); }
+.card h2 {
+  font-family: var(--font-display); font-optical-sizing: auto;
+  font-size: var(--step-2); font-weight: 500; letter-spacing: -.02em;
+}
+.card > header p { color: var(--text-2); font-size: var(--step--1); margin-top: 4px; max-width: 46ch; }
+
+.row {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4);
+  padding: var(--sp-4) 0;
+  border-top: 1px solid var(--hairline);
+}
+.row:first-of-type { border-top: 0; }
+.row-label { display: flex; flex-direction: column; gap: 3px; }
+.row-label span { font-weight: 600; }
+.row-label small { color: var(--text-3); font-size: var(--step--1); max-width: 42ch; }
+
+/* segmented */
+.seg { display: inline-flex; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-md); padding: 3px; gap: 3px; }
+.seg button {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border: 0; border-radius: var(--r-sm);
+  background: transparent; color: var(--text-2); font-weight: 500; font-size: var(--step--1);
+  transition: all var(--dur) var(--ease);
+}
+.seg button.on { background: var(--surface); color: var(--text); box-shadow: var(--shadow-1); }
+
+/* switch */
+.switch {
+  width: 46px; height: 27px; flex-shrink: 0;
+  border-radius: 99px; border: 1px solid var(--border);
+  background: var(--surface-3); position: relative; padding: 0;
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.switch .knob {
+  position: absolute; top: 2px; left: 2px;
+  width: 21px; height: 21px; border-radius: 50%;
+  background: var(--surface); box-shadow: var(--shadow-1);
+  transition: transform var(--dur) var(--ease);
+}
+.switch.on { background: var(--accent); border-color: var(--accent); }
+.switch.on .knob { transform: translateX(19px); background: #fff; }
+
+/* type showcase */
+.type-list { display: flex; flex-direction: column; }
+.type-row { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); padding: var(--sp-4) 0; border-top: 1px solid var(--hairline); }
+.type-row:first-child { border-top: 0; }
+.type-meta { display: flex; flex-direction: column; }
+.type-meta .face { font-weight: 600; }
+.type-meta .role { font-family: var(--font-mono); font-size: var(--step--2); color: var(--text-3); letter-spacing: .08em; text-transform: uppercase; }
+.type-sample { font-size: var(--step-2); color: var(--text); text-align: right; }
+
+/* palette */
+.swatches { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--sp-3); }
+.swatch { display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: var(--sp-3); align-items: center; padding: var(--sp-3); border: 1px solid var(--hairline); border-radius: var(--r-md); }
+.swatch .chip { grid-row: span 2; width: 34px; height: 34px; border-radius: var(--r-sm); border: 1px solid var(--hairline); }
+.sw-name { font-weight: 600; font-size: var(--step--1); align-self: end; }
+.sw-token { font-family: var(--font-mono); font-size: var(--step--2); color: var(--text-3); align-self: start; }
+
+/* open source */
+.meta { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); margin: 0 0 var(--sp-4); }
+.meta dt { font-size: var(--step--2); color: var(--text-3); font-family: var(--font-mono); letter-spacing: .04em; }
+.meta dd { margin: 2px 0 0; font-weight: 600; font-size: var(--step--1); }
+.btn {
+  display: inline-flex; align-items: center; gap: var(--sp-2);
+  height: 38px; padding: 0 var(--sp-4);
+  border: 1px solid var(--border); border-radius: var(--r-md);
+  background: var(--surface); color: var(--text); font-weight: 500; font-size: var(--step--1);
+}
+.btn:hover { border-color: var(--border-strong); background: var(--surface-2); }

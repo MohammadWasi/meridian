@@ -1,0 +1,85 @@
+<div class="page">
+  <header class="page-head">
+    <div>
+      <h1 class="page-title">Settings</h1>
+      <p class="page-lead">Appearance and console preferences. Everything here is local to your browser.</p>
+    </div>
+  </header>
+
+  <div class="cols">
+    <div class="stack">
+      <!-- Appearance -->
+      <section class="card">
+        <header><h2>Appearance</h2><p>Both themes are designed first-class — pick what reads best for you.</p></header>
+        <div class="row">
+          <div class="row-label"><span>Theme</span><small>Persists across visits</small></div>
+          <div class="seg">
+            @for (t of themes; track t) {
+              <button [class.on]="theme.theme() === t" (click)="theme.set(t)">
+                <app-icon [name]="t === 'light' ? 'sun' : 'moon'" [size]="15" />
+                {{ t === 'light' ? 'Light' : 'Dark' }}
+              </button>
+            }
+          </div>
+        </div>
+      </section>
+
+      <!-- Notifications -->
+      <section class="card">
+        <header><h2>Notifications</h2><p>Choose what lands in your inbox.</p></header>
+        @for (t of toggles; track t.key) {
+          <div class="row">
+            <div class="row-label"><span>{{ t.label }}</span><small>{{ t.hint }}</small></div>
+            <button class="switch" role="switch" [attr.aria-checked]="t.on()" [class.on]="t.on()"
+                    (click)="t.on.set(!t.on())" [attr.aria-label]="t.label">
+              <span class="knob"></span>
+            </button>
+          </div>
+        }
+      </section>
+
+      <!-- Type -->
+      <section class="card">
+        <header><h2>Typeface</h2><p>A serif for voice, a grotesque for the interface, a mono for every number.</p></header>
+        <div class="type-list">
+          @for (s of typeSamples; track s.face) {
+            <div class="type-row">
+              <div class="type-meta"><span class="face">{{ s.face }}</span><span class="role">{{ s.role }}</span></div>
+              <div class="type-sample" [style.font-family]="s.css">{{ s.sample }}</div>
+            </div>
+          }
+        </div>
+      </section>
+    </div>
+
+    <div class="stack">
+      <!-- Palette -->
+      <section class="card">
+        <header><h2>Palette</h2><p>Warm neutrals and one signature accent — the same tokens the charts use.</p></header>
+        <div class="swatches">
+          @for (s of swatches; track s.token) {
+            <div class="swatch">
+              <span class="chip" [style.background]="'var(' + s.token + ')'"></span>
+              <span class="sw-name">{{ s.name }}</span>
+              <span class="sw-token">{{ s.token }}</span>
+            </div>
+          }
+        </div>
+      </section>
+
+      <!-- Open source -->
+      <section class="card os">
+        <header><h2>Open source</h2><p>Meridian is MIT-licensed and self-hostable.</p></header>
+        <dl class="meta">
+          <div><dt>Version</dt><dd class="num">1.0.0</dd></div>
+          <div><dt>License</dt><dd>MIT</dd></div>
+          <div><dt>Framework</dt><dd>Angular 22 · zoneless · SSR</dd></div>
+          <div><dt>Charts</dt><dd>Apache ECharts · D3</dd></div>
+        </dl>
+        <a class="btn" href="https://github.com" target="_blank" rel="noopener">
+          <app-icon name="arrow-up-right" [size]="16" [stroke]="2" /> View on GitHub
+        </a>
+      </section>
+    </div>
+  </div>
+</div>

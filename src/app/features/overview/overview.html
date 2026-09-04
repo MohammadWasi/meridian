@@ -1,0 +1,97 @@
+<div class="page">
+  <header class="page-head">
+    <div>
+      <h1 class="page-title">Good afternoon, Mara</h1>
+      <p class="page-lead">
+        Revenue is up <strong>6.3%</strong> month-over-month and retention held above 110%.
+        Two accounts need a look.
+      </p>
+    </div>
+    <div class="page-actions">
+      <span class="status"><span class="live"></span> Live · synced 2m ago</span>
+    </div>
+  </header>
+
+  <!-- KPI row -->
+  <section class="kpis" aria-label="Key metrics">
+    @for (k of kpis; track k.key; let first = $first) {
+      <app-stat-tile [kpi]="k" [featured]="first" [class.feat-cell]="first" />
+    }
+  </section>
+
+  <!-- Bento grid -->
+  <section class="grid">
+    <div class="c-mrr">
+      <app-chart-frame title="Monthly recurring revenue" eyebrow="Trailing 18 months" [bodyHeight]="272">
+        <span actions class="badge pos">
+          <app-icon name="trending-up" [size]="12" [stroke]="2" /> +$282K / 18mo
+        </span>
+        <div class="ch" [chart]="mrrOpt()"></div>
+        <span foot>Compounding ~7% per month. New business now outpaces churn 3:1.</span>
+      </app-chart-frame>
+    </div>
+
+    <aside class="c-act">
+      <div class="feed">
+        <header class="feed-head">
+          <div class="titles">
+            <span class="eyebrow">Realtime</span>
+            <h3>Activity</h3>
+          </div>
+          <app-icon name="activity" [size]="18" />
+        </header>
+        <ul>
+          @for (a of activity; track $index) {
+            <li>
+              <span class="ev" [class]="event(a.kind).cls">
+                <app-icon [name]="event(a.kind).icon" [size]="14" [stroke]="2" />
+              </span>
+              <div class="ev-body">
+                <p class="ev-text">{{ a.text }}</p>
+                <p class="ev-meta"><span class="num">{{ a.meta }}</span> · {{ a.time }} ago</p>
+              </div>
+            </li>
+          }
+        </ul>
+        <div class="feed-foot">
+          <div><span class="k">Events / mo</span><span class="v num">{{ platform.eventsIngested }}</span></div>
+          <div><span class="k">API p95</span><span class="v num">{{ platform.apiP95 }}</span></div>
+          <div><span class="k">Uptime</span><span class="v num">{{ platform.uptime }}</span></div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="c-bridge">
+      <app-chart-frame title="Revenue bridge" eyebrow="Jul → Aug 2026" [bodyHeight]="272">
+        <span actions class="badge">Net +$24.4K</span>
+        <app-revenue-bridge />
+        <span foot>New business and expansion added $35.8K; contraction and churn gave back $11.4K.</span>
+      </app-chart-frame>
+    </div>
+
+    <div class="c-funnel">
+      <app-chart-frame title="Activation funnel" eyebrow="Last 30 days" [bodyHeight]="272">
+        <span actions class="badge">41% end-to-end</span>
+        <div class="ch" [chart]="funnelOpt()"></div>
+      </app-chart-frame>
+    </div>
+
+    <div class="c-move">
+      <app-chart-frame title="MRR movements" eyebrow="New · Expansion · Contraction · Churn" [bodyHeight]="256">
+        <div class="ch" [chart]="moveOpt()"></div>
+      </app-chart-frame>
+    </div>
+
+    <div class="c-cohort">
+      <app-chart-frame title="Retention by cohort" eyebrow="% retained since signup" [bodyHeight]="256">
+        <div class="ch" [chart]="cohortOpt()"></div>
+      </app-chart-frame>
+    </div>
+
+    <div class="c-adopt">
+      <app-chart-frame title="Feature adoption" eyebrow="Share of active accounts" [bodyHeight]="256">
+        <div class="ch" [chart]="adoptOpt()"></div>
+      </app-chart-frame>
+    </div>
+  </section>
+</div>

@@ -1,1 +1,201 @@
-/* You can add global styles to this file, and also import other style files */
+/* ============================================================================
+   MERIDIAN — design tokens & base
+   "Editorial data terminal": warm neutrals, one signature accent (Signal Orange),
+   Fraunces display + Hanken Grotesk UI + JetBrains Mono for every number.
+   ========================================================================== */
+
+/* ---- Light: "Paper" ---- */
+:root {
+  color-scheme: light;
+
+  --bg:            #fbf9f5;
+  --bg-sunken:     #f3efe7;
+  --surface:       #ffffff;
+  --surface-2:     #f6f3ec;
+  --surface-3:     #efeade;
+  --border:        #e6e0d4;
+  --border-strong: #d8d0bf;
+  --hairline:      color-mix(in oklab, var(--border) 70%, transparent);
+
+  --text:          #1b1813;
+  --text-2:        #524c42;
+  --text-3:        #857d6f;
+  --text-inv:      #fbf9f5;
+
+  --accent:        #ea5b2a;   /* Signal Orange */
+  --accent-2:      #c9420f;
+  --accent-weak:   color-mix(in oklab, var(--accent) 12%, var(--surface));
+  --accent-line:   color-mix(in oklab, var(--accent) 30%, var(--border));
+
+  --pos:           #1e9e6a;
+  --neg:           #d64545;
+  --warn:          #d99a1c;
+  --info:          #2d6e7e;
+
+  --pos-weak:      color-mix(in oklab, var(--pos) 14%, var(--surface));
+  --neg-weak:      color-mix(in oklab, var(--neg) 14%, var(--surface));
+  --warn-weak:     color-mix(in oklab, var(--warn) 16%, var(--surface));
+
+  --shadow-1: 0 1px 2px rgba(40, 34, 24, .05), 0 1px 1px rgba(40, 34, 24, .04);
+  --shadow-2: 0 8px 24px -12px rgba(40, 34, 24, .18), 0 2px 6px -3px rgba(40, 34, 24, .10);
+  --shadow-pop: 0 24px 60px -20px rgba(30, 24, 16, .35);
+
+  --grid-dot: color-mix(in oklab, var(--text) 6%, transparent);
+}
+
+/* ---- Dark: "Ink" ---- */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg:            #141210;
+  --bg-sunken:     #0f0e0c;
+  --surface:       #1c1915;
+  --surface-2:     #242019;
+  --surface-3:     #2c2720;
+  --border:        #332d25;
+  --border-strong: #443c31;
+  --hairline:      color-mix(in oklab, var(--border) 80%, transparent);
+
+  --text:          #f3efe6;
+  --text-2:        #b6ad9d;
+  --text-3:        #857c6d;
+  --text-inv:      #17140f;
+
+  --accent:        #ff6b3d;
+  --accent-2:      #ff8a63;
+  --accent-weak:   color-mix(in oklab, var(--accent) 16%, var(--surface));
+  --accent-line:   color-mix(in oklab, var(--accent) 34%, var(--border));
+
+  --pos:           #35c98a;
+  --neg:           #f0656a;
+  --warn:          #e7b23e;
+  --info:          #4fa3b5;
+
+  --pos-weak:      color-mix(in oklab, var(--pos) 18%, var(--surface));
+  --neg-weak:      color-mix(in oklab, var(--neg) 18%, var(--surface));
+  --warn-weak:     color-mix(in oklab, var(--warn) 20%, var(--surface));
+
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, .4);
+  --shadow-2: 0 10px 30px -14px rgba(0, 0, 0, .6), 0 3px 8px -4px rgba(0, 0, 0, .5);
+  --shadow-pop: 0 30px 70px -24px rgba(0, 0, 0, .75);
+
+  --grid-dot: color-mix(in oklab, var(--text) 8%, transparent);
+}
+
+/* ---- Type ---- */
+:root {
+  --font-display: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
+  --font-ui: "Hanken Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", "Cascadia Code", monospace;
+
+  /* fluid scale (major-third-ish, clamped) */
+  --step--2: clamp(.69rem, .67rem + .1vw, .74rem);
+  --step--1: clamp(.79rem, .76rem + .13vw, .85rem);
+  --step-0:  clamp(.9rem,  .87rem + .16vw, .97rem);
+  --step-1:  clamp(1.08rem, 1.02rem + .3vw, 1.24rem);
+  --step-2:  clamp(1.35rem, 1.24rem + .55vw, 1.66rem);
+  --step-3:  clamp(1.7rem, 1.5rem + 1vw, 2.3rem);
+  --step-4:  clamp(2.2rem, 1.8rem + 2vw, 3.4rem);
+
+  /* spacing (4px base) */
+  --sp-1: .25rem; --sp-2: .5rem; --sp-3: .75rem; --sp-4: 1rem;
+  --sp-5: 1.5rem; --sp-6: 2rem; --sp-7: 3rem; --sp-8: 4rem;
+
+  /* crisp radius language */
+  --r-xs: 3px; --r-sm: 5px; --r-md: 8px; --r-lg: 12px; --r-xl: 18px; --r-pill: 999px;
+
+  --ease: cubic-bezier(.32, .72, 0, 1);
+  --dur: 180ms;
+
+  --sidebar-w: 244px;
+  --topbar-h: 60px;
+  --content-max: 1520px;
+}
+
+/* ---- Reset / base ---- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: var(--step-0);
+  line-height: 1.5;
+  font-feature-settings: " cv11" 1;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3, h4 { margin: 0; font-weight: 500; line-height: 1.1; letter-spacing: -.01em; }
+p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: var(--r-xs); }
+::selection { background: color-mix(in oklab, var(--accent) 26%, transparent); }
+
+/* numbers everywhere read like a terminal */
+.num, .tnum { font-family: var(--font-mono); font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+
+/* scrollbars */
+* { scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; }
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 99px; border: 3px solid var(--bg); }
+*::-webkit-scrollbar-thumb:hover { background: var(--text-3); }
+
+/* shared eyebrow / label */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  font-weight: 500;
+}
+
+/* pills / badges */
+.badge {
+  display: inline-flex; align-items: center; gap: .35em;
+  font-family: var(--font-mono); font-size: var(--step--2); font-weight: 500;
+  letter-spacing: .01em;
+  padding: .18em .55em; border-radius: var(--r-sm);
+  border: 1px solid var(--border); background: var(--surface-2); color: var(--text-2);
+  white-space: nowrap;
+}
+.badge.pos { color: var(--pos); background: var(--pos-weak); border-color: color-mix(in oklab, var(--pos) 30%, transparent); }
+.badge.neg { color: var(--neg); background: var(--neg-weak); border-color: color-mix(in oklab, var(--neg) 30%, transparent); }
+.badge.warn { color: var(--warn); background: var(--warn-weak); border-color: color-mix(in oklab, var(--warn) 30%, transparent); }
+
+/* page scaffold shared by feature routes */
+.page {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--sp-6) var(--sp-6) var(--sp-8);
+  animation: page-in 320ms var(--ease) both;
+}
+.page-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-5);
+}
+.page-title {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-size: var(--step-3);
+  font-weight: 500;
+  letter-spacing: -.025em;
+}
+.page-lead { color: var(--text-2); margin-top: 4px; max-width: 62ch; }
+.page-actions { display: flex; align-items: center; gap: var(--sp-3); }
+
+@keyframes page-in { from { opacity: 0; transform: translateY(6px); } }
+
+@media (max-width: 900px) {
+  .page { padding: var(--sp-4) var(--sp-4) var(--sp-7); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}

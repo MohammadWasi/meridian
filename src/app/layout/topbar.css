@@ -1,0 +1,84 @@
+:host {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  height: var(--topbar-h);
+  padding: 0 var(--sp-5);
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in oklab, var(--bg) 82%, transparent);
+  backdrop-filter: saturate(1.1) blur(8px);
+}
+
+.icon-btn {
+  display: grid; place-items: center;
+  width: 36px; height: 36px;
+  border: 1px solid transparent;
+  border-radius: var(--r-md);
+  background: transparent;
+  color: var(--text-2);
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.icon-btn:hover { background: var(--surface-2); color: var(--text); border-color: var(--border); }
+
+.crumb { display: flex; flex-direction: column; line-height: 1.15; margin-left: 2px; }
+.here { font-family: var(--font-display); font-weight: 600; font-size: var(--step-1); letter-spacing: -.02em; }
+.sub { font-size: var(--step--2); color: var(--text-3); }
+
+.grow { flex: 1; }
+
+.search {
+  display: flex; align-items: center; gap: var(--sp-3);
+  height: 36px;
+  min-width: 240px;
+  padding: 0 var(--sp-3);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  color: var(--text-3);
+  transition: border-color var(--dur) var(--ease);
+}
+.search:hover { border-color: var(--border-strong); }
+.search .ph { flex: 1; text-align: left; font-size: var(--step--1); }
+.search .keys { display: flex; gap: 3px; }
+
+kbd {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 2px 5px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-xs);
+  background: var(--surface-2);
+  color: var(--text-3);
+  line-height: 1;
+}
+
+.range {
+  display: flex; align-items: center; gap: var(--sp-2);
+  height: 36px; padding: 0 var(--sp-3);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  color: var(--text-2);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  white-space: nowrap;
+}
+
+.bell { position: relative; }
+.bell .dot {
+  position: absolute; top: 7px; right: 8px;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+}
+
+.only-mobile { display: none; }
+@media (max-width: 900px) {
+  :host { padding: 0 var(--sp-4); }
+  .only-mobile { display: grid; }
+  .only-desktop { display: none; }
+  .search { min-width: 0; }
+  .search .ph, .search .keys { display: none; }
+  .range { display: none; }
+  .sub { display: none; }
+}

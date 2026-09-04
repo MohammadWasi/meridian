@@ -1,0 +1,103 @@
+.scrim {
+  position: fixed;
+  inset: 0;
+  background: color-mix(in oklab, var(--bg-sunken) 62%, transparent);
+  backdrop-filter: blur(3px);
+  z-index: 80;
+  animation: fade 140ms var(--ease);
+}
+.palette {
+  position: fixed;
+  top: 14vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(620px, calc(100vw - 32px));
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-pop);
+  z-index: 81;
+  overflow: hidden;
+  animation: pop 160ms var(--ease);
+}
+@keyframes fade { from { opacity: 0; } }
+@keyframes pop { from { opacity: 0; transform: translate(-50%, 8px) scale(.98); } }
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  border-bottom: 1px solid var(--hairline);
+  color: var(--text-3);
+}
+.search input {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: var(--step-1);
+  outline: none;
+}
+.search input::placeholder { color: var(--text-3); }
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: var(--sp-2);
+  max-height: 52vh;
+  overflow-y: auto;
+}
+.group {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  padding: var(--sp-3) var(--sp-3) var(--sp-2);
+}
+.cmd {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  color: var(--text-2);
+}
+.cmd .lbl { color: var(--text); font-weight: 500; }
+.cmd .hint { margin-left: auto; font-size: var(--step--1); color: var(--text-3); }
+.cmd.active {
+  background: var(--accent-weak);
+  color: var(--accent);
+}
+.cmd.active .lbl { color: var(--accent); }
+.cmd.active .hint { color: color-mix(in oklab, var(--accent) 70%, var(--text-3)); }
+.empty {
+  padding: var(--sp-5);
+  text-align: center;
+  color: var(--text-3);
+  font-size: var(--step--1);
+}
+.foot {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-3) var(--sp-4);
+  border-top: 1px solid var(--hairline);
+  font-size: var(--step--2);
+  color: var(--text-3);
+}
+.foot .brand { margin-left: auto; font-family: var(--font-display); letter-spacing: -.01em; }
+kbd {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 2px 5px;
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  border-radius: var(--r-xs);
+  background: var(--surface-2);
+  color: var(--text-2);
+  margin-right: 2px;
+}

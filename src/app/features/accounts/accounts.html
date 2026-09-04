@@ -1,0 +1,121 @@
+<div class="page">
+  <header class="page-head">
+    <div>
+      <h1 class="page-title">Accounts</h1>
+      <p class="page-lead">Every workspace on Meridian, with revenue, seats and a live health read.</p>
+    </div>
+    <div class="page-actions">
+      <button class="btn" (click)="dense.update(v => !v)">
+        <app-icon name="layers" [size]="16" />
+        {{ dense() ? 'Comfortable' : 'Compact' }}
+      </button>
+      <button class="btn primary" (click)="exportCsv()">
+        <app-icon name="download" [size]="16" /> Export CSV
+      </button>
+    </div>
+  </header>
+
+  <div class="summary">
+    <div><span class="k">Accounts</span><span class="v num">{{ stats().count }}</span></div>
+    <div><span class="k">Combined MRR</span><span class="v num">{{ usd(stats().mrr) }}</span></div>
+    <div><span class="k">Avg health</span><span class="v num">{{ stats().score }}</span></div>
+    <div><span class="k">At risk</span><span class="v num" [class.danger]="stats().risk > 0">{{ stats().risk }}</span></div>
+  </div>
+
+  <div class="toolbar">
+    <label class="search">
+      <app-icon name="search" [size]="17" />
+      <input type="text" placeholder="Search accounts…" [value]="query()" (input)="onSearch($event)"
+             spellcheck="false" autocomplete="off" />
+    </label>
+    <div class="chips" role="tablist" aria-label="Filter by plan">
+      @for (p of plans; track p) {
+        <button class="chip" role="tab" [attr.aria-selected]="plan() === p"
+                [class.on]="plan() === p" (click)="plan.set(p)">{{ p }}</button>
+      }
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table [class.dense]="dense()">
+      <thead>
+        <tr>
+          <th class="sortable" [attr.aria-sort]="sortKey() === 'name' ? (sortDir() === 'asc' ? 'ascending' : 'descending') : 'none'">
+            <button (click)="setSort('name')">
+              Account
+              @if (sortKey() === 'name') { <app-icon [name]="sortDir() === 'asc' ? 'arrow-up' : 'arrow-down'" [size]="13" [stroke]="2.2" /> }
+            </button>
+          </th>
+          <th>Plan</th>
+          <th class="r sortable" [attr.aria-sort]="sortKey() === 'mrr' ? (sortDir() === 'asc' ? 'ascending' : 'descending') : 'none'">
+            <button (click)="setSort('mrr')">
+              MRR
+              @if (sortKey() === 'mrr') { <app-icon [name]="sortDir() === 'asc' ? 'arrow-up' : 'arrow-down'" [size]="13" [stroke]="2.2" /> }
+            </button>
+          </th>
+          <th class="r sortable" [attr.aria-sort]="sortKey() === 'seats' ? (sortDir() === 'asc' ? 'ascending' : 'descending') : 'none'">
+            <button (click)="setSort('seats')">
+              Seats
+              @if (sortKey() === 'seats') { <app-icon [name]="sortDir() === 'asc' ? 'arrow-up' : 'arrow-down'" [size]="13" [stroke]="2.2" /> }
+            </button>
+          </th>
+          <th class="sortable" [attr.aria-sort]="sortKey() === 'score' ? (sortDir() === 'asc' ? 'ascending' : 'descending') : 'none'">
+            <button (click)="setSort('score')">
+              Health
+              @if (sortKey() === 'score') { <app-icon [name]="sortDir() === 'asc' ? 'arrow-up' : 'arrow-down'" [size]="13" [stroke]="2.2" /> }
+            </button>
+          </th>
+          <th>30-day usage</th>
+          <th>Last active</th>
+          <th aria-label="Actions"></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (a of rows(); track a.domain) {
+          <tr>
+            <td>
+              <div class="acct">
+                <span class="ava" aria-hidden="true">{{ a.name.slice(0, 1) }}</span>
+                <div class="acct-id">
+                  <span class="acct-name">{{ a.name }}</span>
+                  <span class="acct-dom">{{ a.domain }}</span>
+                </div>
+              </div>
+            </td>
+            <td><span class="badge plan {{ a.plan | lowercase }}">{{ a.plan }}</span></td>
+            <td class="r num">{{ a.mrr === 0 ? '—' : usd(a.mrr) }}</td>
+            <td class="r num">{{ a.seats }}</td>
+            <td>
+              <div class="health">
+                <span class="track"><span class="fill {{ healthCls(a.health) }}" [style.width.%]="a.score"></span></span>
+                <span class="badge {{ healthCls(a.health) }}">{{ a.score }} · {{ a.health }}</span>
+              </div>
+            </td>
+            <td>
+              <app-sparkline class="row-spark" [class.up]="trendUp(a)" [class.down]="!trendUp(a)"
+                             [data]="a.trend" [w]="110" [h]="30" [area]="false" />
+            </td>
+            <td class="muted">{{ a.lastActive }}</td>
+            <td class="r">
+              <button class="row-more" aria-label="Row actions"><app-icon name="more" [size]="16" /></button>
+            </td>
+          </tr>
+        }
+        @if (rows().length === 0) {
+          <tr><td colspan="8" class="no-rows">
+            <svg class="empty-art" viewBox="0 0 140 112" fill="none" aria-hidden="true">
+              <rect x="24" y="18" width="72" height="58" rx="7" stroke="currentColor" stroke-width="2" opacity=".4"/>
+              <line x1="36" y1="34" x2="84" y2="34" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".3"/>
+              <line x1="36" y1="46" x2="84" y2="46" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".3"/>
+              <line x1="36" y1="58" x2="64" y2="58" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".3"/>
+              <circle cx="96" cy="74" r="19" fill="var(--surface)" stroke="var(--accent)" stroke-width="3"/>
+              <line x1="110" y1="88" x2="122" y2="100" stroke="var(--accent)" stroke-width="3.4" stroke-linecap="round"/>
+            </svg>
+            <p class="empty-title">No accounts match “{{ query() }}”</p>
+            <p class="empty-sub">Try a different name, domain, or plan filter.</p>
+          </td></tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
