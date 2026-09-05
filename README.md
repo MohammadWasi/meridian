@@ -12,7 +12,11 @@
     <img alt="SSR" src="https://img.shields.io/badge/SSR-prerender%20%2B%20zoneless-ea5b2a?style=flat-square" />
   </p>
 
-  <img src="docs/hero.png" alt="Meridian overview dashboard" width="960" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/hero.png" />
+    <source media="(prefers-color-scheme: light)" srcset="docs/hero-light.png" />
+    <img src="docs/hero.png" alt="Meridian overview dashboard" width="960" />
+  </picture>
 </div>
 
 ---

@@ -4,6 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter } from 'rxjs';
 import { Icon } from '../core/icon';
 import { NAV } from '../core/nav';
+import { ACCOUNTS } from '../data/seed';
 import { ThemeService } from '../core/theme.service';
 import { CommandService } from '../shared/command.service';
 import { LayoutService } from './layout.service';
@@ -68,6 +69,12 @@ export class Topbar {
   }
 
   private resolve(url: string): string {
-    return NAV.find((n) => url.startsWith(n.path))?.label ?? 'Overview';
+    const clean = url.split('?')[0].split('#')[0];
+    const detail = clean.match(/^\/accounts\/(.+)$/);
+    if (detail) {
+      const domain = decodeURIComponent(detail[1]);
+      return ACCOUNTS.find((a) => a.domain === domain)?.name ?? 'Account';
+    }
+    return NAV.find((n) => clean.startsWith(n.path))?.label ?? 'Overview';
   }
 }
