@@ -7,6 +7,7 @@
   Built with Angular 22 — zoneless, SSR, signals — and designed as a statement piece, not a template.</p>
 
   <p>
+    <a href="https://github.com/MohammadWasi/meridian/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/MohammadWasi/meridian/actions/workflows/ci.yml/badge.svg" /></a>
     <img alt="Angular 22" src="https://img.shields.io/badge/Angular-22-DD0031?style=flat-square" />
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-1e9e6a?style=flat-square" />
     <img alt="SSR" src="https://img.shields.io/badge/SSR-prerender%20%2B%20zoneless-ea5b2a?style=flat-square" />

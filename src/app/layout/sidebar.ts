@@ -41,7 +41,7 @@ import { LayoutService } from './layout.service';
         <span>Live demo</span>
       </div>
       <p>Seeded with a full quarter of realistic SaaS data. Self-host your own in minutes.</p>
-      <a class="cta" href="https://github.com" target="_blank" rel="noopener">
+      <a class="cta" href="https://github.com/MohammadWasi/meridian" target="_blank" rel="noopener">
         Read the docs <app-icon name="arrow-up-right" [size]="14" [stroke]="2" />
       </a>
     </div>

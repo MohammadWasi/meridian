@@ -5,6 +5,8 @@
    and account rows roll up to the totals shown on Overview.
    ========================================================================== */
 
+import { IconName } from '../core/icon';
+
 export interface MonthPoint {
   label: string;
   mrr: number;
@@ -70,6 +72,7 @@ export interface Kpi {
   good: boolean; // is this movement good?
   spark: number[];
   footnote: string;
+  icon: IconName;
 }
 
 const mrrMoM = ((latest.mrr - prev.mrr) / prev.mrr) * 100;
@@ -86,6 +89,7 @@ export const KPIS: Kpi[] = [
     good: true,
     spark: sparkMrr,
     footnote: `${'$4.93M'} ARR`,
+    icon: 'card',
   },
   {
     key: 'nrr',
@@ -97,6 +101,7 @@ export const KPIS: Kpi[] = [
     good: true,
     spark: [104, 105, 106, 106, 107, 108, 108, 109, 110, 110, 111, 112],
     footnote: 'trailing 12-mo, logo-weighted',
+    icon: 'target',
   },
   {
     key: 'accounts',
@@ -108,6 +113,7 @@ export const KPIS: Kpi[] = [
     good: true,
     spark: [1042, 1071, 1096, 1118, 1141, 1163, 1188, 1205, 1226, 1243, 1262, 1284],
     footnote: '87 on Enterprise',
+    icon: 'accounts',
   },
   {
     key: 'activation',
@@ -119,6 +125,7 @@ export const KPIS: Kpi[] = [
     good: true,
     spark: [58, 59, 61, 60, 62, 63, 64, 64, 66, 66, 67, 68.4],
     footnote: 'trial → activated in 14 days',
+    icon: 'zap',
   },
   {
     key: 'churn',
@@ -130,6 +137,7 @@ export const KPIS: Kpi[] = [
     good: true,
     spark: [3.1, 3.0, 2.9, 3.1, 2.8, 2.7, 2.8, 2.6, 2.5, 2.4, 2.4, 2.1],
     footnote: 'monthly, revenue-weighted',
+    icon: 'trending-down',
   },
 ];
 

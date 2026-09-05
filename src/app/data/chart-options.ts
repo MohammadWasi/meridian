@@ -27,11 +27,12 @@ const axisLabelMono = (vt: VizTheme, extra: object = {}) => ({
    -------------------------------------------------------------------------- */
 export function mrrAreaOption(vt: VizTheme, months: MonthPoint[]): EChartsOption {
   return {
-    animationDuration: 600,
-    grid: { left: 8, right: 14, top: 18, bottom: 6, containLabel: true },
+    animationDuration: 700,
+    grid: { left: 8, right: 70, top: 22, bottom: 6, containLabel: true },
     tooltip: {
       trigger: 'axis',
       ...tooltipBase(vt),
+      axisPointer: { type: 'line', lineStyle: { color: vt.accent, width: 1, type: 'dashed' } },
       formatter: (p: any) => {
         const d = p[0];
         return `<div style="font-family:${vt.fontMono};font-size:11px;color:${vt.textMuted};letter-spacing:.04em">${d.axisValue}</div>
@@ -61,15 +62,25 @@ export function mrrAreaOption(vt: VizTheme, months: MonthPoint[]): EChartsOption
         symbolSize: 6,
         showSymbol: false,
         data: months.map((m) => m.mrr),
-        lineStyle: { color: vt.accent, width: 2.5 },
+        lineStyle: { color: vt.accent, width: 3, shadowColor: vt.accent + '44', shadowBlur: 12, shadowOffsetY: 6 },
         itemStyle: { color: vt.accent, borderColor: vt.surface, borderWidth: 2 },
         emphasis: { focus: 'series' },
+        endLabel: {
+          show: true,
+          color: vt.accent,
+          fontFamily: vt.fontMono,
+          fontWeight: 700,
+          fontSize: 12,
+          formatter: (p: any) => usdCompact(p.value),
+          offset: [6, 0],
+        },
         areaStyle: {
           color: {
             type: 'linear',
             x: 0, y: 0, x2: 0, y2: 1,
             colorStops: [
-              { offset: 0, color: vt.accent + '55' },
+              { offset: 0, color: vt.accent + '66' },
+              { offset: 0.55, color: vt.accent + '22' },
               { offset: 1, color: vt.accent + '00' },
             ],
           },
@@ -89,7 +100,7 @@ export function movementsOption(vt: VizTheme, months: MonthPoint[]): EChartsOpti
     type: 'bar' as const,
     stack: 'mov',
     data: last.map((m) => (neg ? -(m[key] as number) : (m[key] as number))),
-    itemStyle: { color, borderRadius: 1 },
+    itemStyle: { color, borderRadius: 2 },
     barMaxWidth: 22,
     emphasis: { focus: 'series' as const },
   });
@@ -234,11 +245,12 @@ export function funnelOption(vt: VizTheme, steps: FunnelStep[]): EChartsOption {
    -------------------------------------------------------------------------- */
 export function usageAreaOption(vt: VizTheme, labels: string[], values: number[]): EChartsOption {
   return {
-    animationDuration: 500,
-    grid: { left: 4, right: 12, top: 16, bottom: 4, containLabel: true },
+    animationDuration: 600,
+    grid: { left: 4, right: 40, top: 16, bottom: 4, containLabel: true },
     tooltip: {
       trigger: 'axis',
       ...tooltipBase(vt),
+      axisPointer: { type: 'line', lineStyle: { color: vt.accent, width: 1, type: 'dashed' } },
       formatter: (p: any) => {
         const d = p[0];
         return `<div style="font-family:${vt.fontMono};font-size:11px;color:${vt.textMuted}">${d.axisValue}</div>
@@ -266,12 +278,22 @@ export function usageAreaOption(vt: VizTheme, labels: string[], values: number[]
         smooth: 0.4,
         symbol: 'none',
         data: values,
-        lineStyle: { color: vt.accent, width: 2.5 },
+        lineStyle: { color: vt.accent, width: 3 },
+        endLabel: {
+          show: true,
+          color: vt.accent,
+          fontFamily: vt.fontMono,
+          fontWeight: 700,
+          fontSize: 12,
+          formatter: (p: any) => `${p.value}`,
+          offset: [6, 0],
+        },
         areaStyle: {
           color: {
             type: 'linear', x: 0, y: 0, x2: 0, y2: 1,
             colorStops: [
-              { offset: 0, color: vt.accent + '4d' },
+              { offset: 0, color: vt.accent + '5c' },
+              { offset: 0.55, color: vt.accent + '1f' },
               { offset: 1, color: vt.accent + '00' },
             ],
           },
