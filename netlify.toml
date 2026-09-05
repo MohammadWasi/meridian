@@ -1,0 +1,13 @@
+# Netlify deployment for Meridian (Angular 22 SSR).
+# The @netlify/angular-runtime plugin wraps the SSR server (dist/meridian/server)
+# in a Netlify Function and serves the browser build + prerendered routes as static.
+
+[build]
+  command = "npm run build"
+  publish = "dist/meridian/browser"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[[plugins]]
+  package = "@netlify/angular-runtime"
