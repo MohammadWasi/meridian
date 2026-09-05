@@ -88,6 +88,15 @@ npm run serve:ssr:meridian
 
 Requires Node 20.19+ (built and tested on Node 24).
 
+## Deploy
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/MohammadWasi/meridian)
+
+One click imports this repo into Netlify. [`netlify.toml`](netlify.toml) configures the SSR build
+via [`@netlify/angular-runtime`](https://github.com/netlify/angular-runtime): the Angular server
+renders on a Netlify Function while the browser build and prerendered routes are served statically.
+Every push to `main` then redeploys automatically.
+
 ## Project structure
 
 ```
