@@ -13,6 +13,11 @@ export const routes: Routes = [
     loadComponent: () => import('./features/accounts/accounts').then((m) => m.Accounts),
   },
   {
+    path: 'accounts/:id',
+    title: 'Account · Meridian',
+    loadComponent: () => import('./features/account-detail/account-detail').then((m) => m.AccountDetail),
+  },
+  {
     path: 'settings',
     title: 'Settings · Meridian',
     loadComponent: () => import('./features/settings/settings').then((m) => m.Settings),

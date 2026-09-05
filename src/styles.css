@@ -164,6 +164,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .badge.pos { color: var(--pos); background: var(--pos-weak); border-color: color-mix(in oklab, var(--pos) 30%, transparent); }
 .badge.neg { color: var(--neg); background: var(--neg-weak); border-color: color-mix(in oklab, var(--neg) 30%, transparent); }
 .badge.warn { color: var(--warn); background: var(--warn-weak); border-color: color-mix(in oklab, var(--warn) 30%, transparent); }
+.badge.info { color: var(--info); background: color-mix(in oklab, var(--info) 14%, var(--surface)); border-color: color-mix(in oklab, var(--info) 30%, transparent); }
+.badge.plan.free { color: var(--text-3); }
+.badge.plan.team { color: var(--info); background: color-mix(in oklab, var(--info) 14%, var(--surface)); border-color: color-mix(in oklab, var(--info) 28%, transparent); }
+.badge.plan.business { color: var(--accent); background: var(--accent-weak); border-color: var(--accent-line); }
+.badge.plan.enterprise { color: #6f7bd0; background: color-mix(in oklab, #6f7bd0 15%, var(--surface)); border-color: color-mix(in oklab, #6f7bd0 30%, transparent); }
 
 /* page scaffold shared by feature routes */
 .page {

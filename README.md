@@ -11,6 +11,8 @@
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-1e9e6a?style=flat-square" />
     <img alt="SSR" src="https://img.shields.io/badge/SSR-prerender%20%2B%20zoneless-ea5b2a?style=flat-square" />
   </p>
+
+  <img src="docs/hero.png" alt="Meridian overview dashboard" width="960" />
 </div>
 
 ---
@@ -36,15 +38,34 @@ book — so every chart tells a coherent story out of the box.
   charts (area, diverging stacked bars, retention heatmap, funnel, adoption bars) plus a **custom
   D3 revenue-bridge waterfall** rendered as reactive, SSR-safe SVG.
 - **A ⌘K command palette**, a collapsible rail, a responsive bento grid, a sortable/filterable
-  data table with a real CSV export, and considered empty / hover states.
+  data table with a real CSV export, **drill-through per-account detail pages**, and considered
+  empty / hover states.
 - **Accessible & fast** — keyboard-navigable, `aria-sort` tables, focus-visible rings,
   `prefers-reduced-motion` support, and a ~86 KB gzipped initial payload (ECharts loads on demand).
 
 ## Screenshots
 
-Run it locally (`npm start`) to see it live. `/overview` is the flagship; `/accounts` is the
-data-table showcase; `/settings` exposes the design tokens. Add captured PNGs to `docs/` if you
-want them embedded here.
+### Overview — the flagship
+
+A bento of the headline metrics: MRR area, a custom revenue-bridge waterfall, an activation funnel,
+diverging MRR movements, a retention cohort heatmap, feature adoption, and a live activity feed.
+
+![Overview, dark theme](docs/overview-dark.png)
+
+<details>
+<summary><strong>The same page in the light "Paper" theme</strong> (both themes are designed first-class)</summary>
+
+![Overview, light theme](docs/overview-light.png)
+
+</details>
+
+### Accounts — sortable, filterable, exportable
+
+![Accounts table](docs/accounts.png)
+
+### Account detail
+
+![Account detail](docs/account-detail.png)
 
 ## Quick start
 
@@ -72,7 +93,7 @@ src/app/
 ├─ layout/          sidebar, topbar, layout state
 ├─ data/            typed seed data, viz palette, themed ECharts option builders
 ├─ viz/             custom D3 revenue-bridge waterfall
-└─ features/        overview · accounts · settings (lazy routes)
+└─ features/        overview · accounts · account-detail · settings (lazy routes)
 ```
 
 The design system lives in [`src/styles.css`](src/styles.css) (tokens) and

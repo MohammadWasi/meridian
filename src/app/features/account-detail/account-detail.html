@@ -1,0 +1,82 @@
+<div class="page">
+  @if (account(); as a) {
+    <a class="back" routerLink="/accounts">
+      <app-icon name="chevron-right" [size]="15" /> Accounts
+    </a>
+
+    <header class="detail-head">
+      <div class="who">
+        <span class="ava" aria-hidden="true">{{ a.name.slice(0, 1) }}</span>
+        <div>
+          <h1 class="page-title">{{ a.name }}</h1>
+          <p class="dom">{{ a.domain }} · {{ region() }}</p>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="badge plan {{ a.plan.toLowerCase() }}">{{ a.plan }}</span>
+        <span class="badge {{ healthCls(a.health) }}">{{ a.score }} · {{ a.health }}</span>
+      </div>
+    </header>
+
+    <section class="mini">
+      <div><span class="k">MRR</span><span class="v num">{{ a.mrr === 0 ? '—' : usd(a.mrr) }}</span></div>
+      <div><span class="k">Seats</span><span class="v num">{{ a.seats }}</span></div>
+      <div><span class="k">Health</span><span class="v num">{{ a.score }}</span></div>
+      <div>
+        <span class="k">30-day usage</span>
+        <span class="v num" [class.pos]="usageDelta() >= 0" [class.neg]="usageDelta() < 0">
+          {{ usageDelta() >= 0 ? '+' : '' }}{{ usageDelta() }}%
+        </span>
+      </div>
+    </section>
+
+    <div class="detail-grid">
+      <div class="main">
+        <app-chart-frame title="Usage index" eyebrow="Weekly · last 12 weeks" [bodyHeight]="300">
+          <span actions class="badge" [class.pos]="usageDelta() >= 0" [class.neg]="usageDelta() < 0">
+            <app-icon [name]="usageDelta() >= 0 ? 'trending-up' : 'trending-down'" [size]="12" [stroke]="2" />
+            {{ usageDelta() >= 0 ? '+' : '' }}{{ usageDelta() }}%
+          </span>
+          <div class="ch" [chart]="usageOpt()"></div>
+          <span foot>A blended index of active users, reports built and events ingested for {{ a.name }}.</span>
+        </app-chart-frame>
+      </div>
+
+      <aside class="side">
+        <section class="card">
+          <h3>At a glance</h3>
+          <dl>
+            <div><dt>Plan</dt><dd>{{ a.plan }}</dd></div>
+            <div><dt>Seats</dt><dd class="num">{{ a.seats }}</dd></div>
+            <div><dt>MRR</dt><dd class="num">{{ a.mrr === 0 ? '—' : usd(a.mrr) }}</dd></div>
+            <div><dt>Health</dt><dd><span class="badge {{ healthCls(a.health) }}">{{ a.health }}</span></dd></div>
+            <div><dt>Region</dt><dd>{{ region() }}</dd></div>
+            <div><dt>Last active</dt><dd>{{ a.lastActive }}</dd></div>
+            <div><dt>Primary contact</dt><dd class="mono">ops&#64;{{ a.domain }}</dd></div>
+          </dl>
+        </section>
+
+        <section class="card">
+          <h3>Timeline</h3>
+          <ul class="tl">
+            @for (t of timeline(); track $index) {
+              <li>
+                <span class="ev {{ t.cls }}"><app-icon [name]="t.icon" [size]="14" [stroke]="2" /></span>
+                <div class="tl-body">
+                  <p class="tl-text">{{ t.text }}</p>
+                  <p class="tl-meta"><span class="num">{{ t.meta }}</span> · {{ t.time }}</p>
+                </div>
+              </li>
+            }
+          </ul>
+        </section>
+      </aside>
+    </div>
+  } @else {
+    <div class="not-found">
+      <h1 class="page-title">Account not found</h1>
+      <p class="page-lead">No workspace matches “{{ id() }}”.</p>
+      <a class="btn" routerLink="/accounts"><app-icon name="chevron-right" [size]="15" /> Back to accounts</a>
+    </div>
+  }
+</div>

@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy, Component, PLATFORM_ID, computed, inject, signal,
 } from '@angular/core';
 import { isPlatformBrowser, LowerCasePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { Icon } from '../../core/icon';
 import { Sparkline } from '../../shared/sparkline';
 import { ACCOUNTS, Account, Plan, Health } from '../../data/seed';
@@ -12,7 +13,7 @@ type SortKey = 'name' | 'mrr' | 'seats' | 'score';
 @Component({
   selector: 'app-accounts',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Icon, Sparkline, LowerCasePipe],
+  imports: [Icon, Sparkline, LowerCasePipe, RouterLink],
   templateUrl: './accounts.html',
   styleUrl: './accounts.css',
 })

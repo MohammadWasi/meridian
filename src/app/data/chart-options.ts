@@ -230,6 +230,58 @@ export function funnelOption(vt: VizTheme, steps: FunnelStep[]): EChartsOption {
 }
 
 /* --------------------------------------------------------------------------
+   6. Per-account usage — smooth area (generic index, no currency)
+   -------------------------------------------------------------------------- */
+export function usageAreaOption(vt: VizTheme, labels: string[], values: number[]): EChartsOption {
+  return {
+    animationDuration: 500,
+    grid: { left: 4, right: 12, top: 16, bottom: 4, containLabel: true },
+    tooltip: {
+      trigger: 'axis',
+      ...tooltipBase(vt),
+      formatter: (p: any) => {
+        const d = p[0];
+        return `<div style="font-family:${vt.fontMono};font-size:11px;color:${vt.textMuted}">${d.axisValue}</div>
+          <div style="font-family:${vt.fontMono};font-size:14px;font-weight:600;color:${vt.text}">${d.value} <span style="color:${vt.textMuted}">usage index</span></div>`;
+      },
+    },
+    xAxis: {
+      type: 'category',
+      boundaryGap: false,
+      data: labels,
+      axisLine: { lineStyle: { color: vt.axis } },
+      axisTick: { show: false },
+      axisLabel: axisLabelMono(vt, { interval: 1 }),
+    },
+    yAxis: {
+      type: 'value',
+      scale: true,
+      splitNumber: 3,
+      axisLabel: axisLabelMono(vt),
+      splitLine: { lineStyle: { color: vt.grid, type: 'dashed' } },
+    },
+    series: [
+      {
+        type: 'line',
+        smooth: 0.4,
+        symbol: 'none',
+        data: values,
+        lineStyle: { color: vt.accent, width: 2.5 },
+        areaStyle: {
+          color: {
+            type: 'linear', x: 0, y: 0, x2: 0, y2: 1,
+            colorStops: [
+              { offset: 0, color: vt.accent + '4d' },
+              { offset: 1, color: vt.accent + '00' },
+            ],
+          },
+        },
+      },
+    ],
+  };
+}
+
+/* --------------------------------------------------------------------------
    5. Feature adoption — horizontal bars with track
    -------------------------------------------------------------------------- */
 export function adoptionOption(vt: VizTheme, rows: Adoption[]): EChartsOption {
